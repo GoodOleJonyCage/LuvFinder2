@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1a5fa57c8b43a357572ca220473986164625c25ca1c887f61dd3a6f8a9db07c5
-size 462
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class Region
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public short CountryId { get; set; }
+
+    public virtual ICollection<City> Cities { get; set; } = new List<City>();
+
+    public virtual Country Country { get; set; } = null!;
+
+    public virtual ICollection<UserInfo> UserInfos { get; set; } = new List<UserInfo>();
+}

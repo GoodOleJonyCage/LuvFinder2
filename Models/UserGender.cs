@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d6a9151f21feb5c06acf1a04205508eeeaa285773f3c199c96ae8733ead37d66
-size 389
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class UserGender
+{
+    public int Id { get; set; }
+
+    public string? Gender { get; set; }
+
+    public virtual ICollection<UserInfo> UserInfoGenders { get; set; } = new List<UserInfo>();
+
+    public virtual ICollection<UserInfo> UserInfoSeekingGenders { get; set; } = new List<UserInfo>();
+}

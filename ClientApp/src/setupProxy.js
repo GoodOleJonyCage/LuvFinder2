@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a7f86a60abf41ffe7464eede6177aa9e1a31876b64f2dd226b2d1bae81bba99e
-size 613
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const { env } = require('process');
+
+const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
+  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'http://localhost:40006';
+
+const context =  [
+    "/weatherforecast",
+    "/profile",
+    "/user",
+    "/chat",
+    "/userpic", 
+    "/search",
+    "/blog"
+];
+
+module.exports = function(app) {
+  const appProxy = createProxyMiddleware(context, {
+    target: target,
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
+  });
+
+  app.use(appProxy);
+};

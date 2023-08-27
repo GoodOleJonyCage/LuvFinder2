@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:35a77ad0f3e8c17f212970e6692d0c192de28d2d3d5e1937c657d0ac289f9e2b
-size 513
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class UserMessage
+{
+    public int Id { get; set; }
+
+    public int FromId { get; set; }
+
+    public int ToId { get; set; }
+
+    public string Message { get; set; } = null!;
+
+    public DateTime? Date { get; set; }
+
+    public bool? MessageRead { get; set; }
+
+    public DateTime? MessageReadDate { get; set; }
+
+    public virtual User From { get; set; } = null!;
+
+    public virtual User To { get; set; } = null!;
+}

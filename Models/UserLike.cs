@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:48da67e08590cf6a5cc35355bb825a58df08ceb7584102bb6f132239d8195433
-size 461
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class UserLike
+{
+    public int Id { get; set; }
+
+    public int FromId { get; set; }
+
+    public int ToId { get; set; }
+
+    public DateTime Date { get; set; }
+
+    public bool? LikeAccepted { get; set; }
+
+    public DateTime? LikeAcceptedDate { get; set; }
+
+    public virtual User From { get; set; } = null!;
+
+    public virtual User To { get; set; } = null!;
+}

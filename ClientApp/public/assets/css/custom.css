@@ -1,3 +1,515 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0bf13171fe5fb99866948fad57c38c3776da3550c24674a10b1d60fdb329f7c4
-size 8634
+﻿body div {
+    color: white;
+}
+
+body a {
+    text-decoration: none;
+}
+
+.page-header-section {
+    background: url(../images/page-header.jpg);
+    
+}
+
+.footer-middle {
+    background: url(../images/footer/bg.png);
+}
+
+.grid-memberlist {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.highlight-error{
+    font-family: Arial;
+    font-weight:bold;
+    color:red;
+}
+
+.form-group input.highlight-field {
+    border-color: red;
+    border-width: 2px;
+    border-radius: 5px;
+}
+
+.profilequestionnaire-container {
+   margin-top: 20px;
+}
+
+.breadcrumb li a::before{
+    background:none !important;
+}
+
+.info-card .info-card-content .info-list li .info-name:after {
+    content: "";
+}
+
+.loader{
+    font-size:larger;
+    color:red;
+    font-weight:bold;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.profilequestionnaire-textarea{
+    width:100%;
+    color:black;
+    padding:20px;
+    margin-top:10px;
+}
+
+.questionnaire_Control_container {
+    display: flex;
+    flex-flow: wrap;
+}
+
+    .questionnaire_Control_container label {
+        display: flex;
+        flex-direction: row;
+        line-height: 20px;
+        margin-bottom: 20px;
+    }
+
+    .questionnaire_Control_container input {
+        width:100px;
+        flex: 0 0 40px;
+    }
+
+.profilequestionnaire-container .lab-btn {
+    line-height: 30px;
+}
+
+
+a:hover {
+    cursor: pointer;
+}
+
+/*Header links login, sign up*/ 
+
+@media (min-width: 992px) {
+    .header-wrapper .menu-area {
+        align-items: baseline;
+    }
+}
+
+@media (min-width: 768px) {
+    .header-wrapper .menu-area .username {
+        border: none;
+        padding: 8px;
+        display: inline-block;
+        color: #df314d;
+        border-radius: 2px 0 0 2px;
+        background-color: #fff;
+    }
+}
+
+@media (min-width: 768px) {
+    .header-wrapper .menu-area .logout
+     {
+        border:none;
+        padding: 8px;
+        display: inline-block;
+        color: #fff;
+        border-radius: 2px 0 0 2px;
+        background: #df314d;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .header-wrapper .menu-area .login-signout-container {
+        display: flex;
+        flex-direction: column;
+        align-items:flex-start;
+    }
+    .header-wrapper .menu-area .login-signout-container button {
+            color: white;
+            background-color: transparent;
+            border: none;
+    }
+}
+
+
+/*checkmark css*/
+
+ul li.checkmark:before {
+    content: '\2713';
+    display: inline-block;
+    color: red;
+    padding: 0 6px 0 0;
+    font-weight: bold;
+}
+ul li.nocheckmark:before {
+    content: '';
+    display: inline-block;
+    color: red;
+    padding: 0 18px 0 0;
+}
+
+/*checkmark css*/
+
+.question-para {
+    text-align: justify;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+}
+
+.question-para::first-letter {
+        font-size: 2.5em;
+        color: indianred;
+        line-height: 1;
+ }
+
+/*mui autocomplete*/
+ 
+
+.MuiInputLabel-root {
+    color: white !important;
+    position: relative;
+    margin-top: -7px;
+    font-size: small !important;
+}
+.MuiAutocomplete-input {
+    color: white !important;
+    font-size: small !important;
+}
+.MuiOutlinedInput-root {
+    border: solid 1px white;
+ 
+}
+.MuiTextField-root {
+    color: white;
+    width: 180px !important;
+    border-radius: 5px;
+    font-size: small;
+}
+.MuiAutocomplete-option {
+    margin-left: 20px;
+    font-size: small ;
+}
+.MuiAutocomplete-popupIndicator svg,
+.MuiAutocomplete-clearIndicator svg {
+    color: white;
+}
+
+/*mui autocomplete on search page*/
+.search-location-selectors-search {
+    margin-left: 1px;
+    padding: 25px 15px;
+    background-color: #391965;
+    font-size: small;
+}
+.search-location-selectors-search .MuiInputLabel-root,
+.search-location-selectors-search .MuiAutocomplete-option,
+.search-location-selectors-search .MuiAutocomplete-input {
+        font-size: small;
+    }
+/*mui autocomplete on search page*/
+/*mui autocomplete*/
+.profile-form input[type="text"],
+.profile-form select {
+    color: black;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 5px;
+    width: 180px;
+}
+
+
+
+    .info-details .region-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size:small;
+    }
+
+    .info-details .region-container .first-div {
+        flex: 0 0 70px;
+    }
+
+    .info-details .region-container-viewmode {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+        .info-details .region-container-viewmode div {
+            flex: 0 0 70px;
+        }
+
+        .info-details .region-container-viewmode label {
+        }
+
+    @media (max-width: 500px) {
+        .info-details .region-container {
+            display: block;
+        }
+    }
+
+
+    /*Profile list*/
+.profile-location{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+.profile-item-container {
+    cursor: pointer !important;
+}
+.profile-item-container img{
+        width:170px;
+        height:190px;
+}
+
+.profile-information .profile-pic img {
+    width: 170px;
+    height: 190px;
+}
+
+.profile-item .profile-item-maritalstatus {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: x-small;
+}
+
+    .profile-item .profile-item-age {
+        font-size: x-small;
+    }
+
+    .profile-item-maritalstatus-seeking {
+        margin-left: 3px;
+        margin-right: 2px;
+    }
+
+    .profile-item .profile-item-address {
+        font-style: italic;
+        font-size: small;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+        .profile-item .profile-item-address div {
+            margin-left: 3px;
+        }
+
+    .member-item.style-1 .lab-inner .lab-thumb img {
+        transform: none;
+    }
+
+    .profile-item div {
+        padding-top: 2px;
+    }
+
+    .member-item.style-1 .lab-inner .lab-content{
+        min-height:150px;
+    }
+
+     .fa-heart-red {
+        color: red;
+    }
+     .fa-people-group-green{
+        color:green;
+    }
+    .profile-item-icons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+        padding:20px 20px;
+
+    }
+
+    /*Profile list*/
+
+.friendship-request-container{
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    font-size:small;
+}
+
+.friendship-request-sender {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: center;
+}
+.friendship-request-sender-time {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-content:flex-end;
+    align-items:center;
+    font-size:smaller;
+}
+.friendship-request-sender-date{
+
+    margin-left:5px;
+}
+.friend-request-count {
+    margin-left: 2px;
+}
+
+.chat-summary-item{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+}
+.chat-summary-item-name{
+    font-size:small;
+    font-style:italic;
+    color:red;
+}
+.chat-summary-item-count {
+   color:darkorange;
+}
+.chat-summary-item-button {
+ font-size:smaller;
+}
+
+.comment-list .comment {
+    display:flex;
+    justify-content:flex-start;
+}
+
+.comment-list .comment-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comments .chat-container {
+    height:300px;
+    overflow: auto; 
+}
+
+.chat-header{
+    display:flex;
+    justify-content:space-between;
+}
+.go-back-container {
+    display:flex;
+    justify-content:flex-end;
+    gap:5px;
+    align-items:center;
+}
+
+.chat-header-user{
+    display:flex;
+    align-items:baseline;
+    justify-content:center;
+    gap:5px;
+    flex-wrap:wrap;
+}
+.chat-summary-user {
+    color:red;
+    font-style: italic;
+}
+.chat-summary-location {
+    color: green;
+    font-style: italic;
+}
+
+.search-location-selectors{
+    display:flex;
+    flex-direction:column;
+}
+
+.filter-form{
+    display:flex;
+    align-items:center;
+    font-size:smaller;
+    flex-direction:column;
+    gap:6px;
+}
+
+   .filter-form .filter-form-fields div{
+       margin-bottom:3px;
+   }
+
+/*upload controls*/
+.upload-btn {
+    background-color: rgb(223, 49, 77);
+    color: white;
+     
+}
+.upload-container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+    margin:20px 20px;
+}
+.file-uploader{
+    font-weight:bold;
+    font-style:italic;
+}
+.upload-page-title{
+    font-size:xx-large;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+.upload-page-sub-title{
+    font-family:Papyrus;
+}
+.upload-container img{
+    width:200px;
+    height:280px;
+}
+/*upload controls*/
+.profile-details 
+  {
+    font-family: "Jost", sans-serif;
+}
+
+.profile-complete-container{
+    padding:100px 0px;
+}
+
+.highlight-body{
+    border:solid 1px red;
+}
+
+.blog-item  img{
+    width: 770px;
+    height: 370px;
+}
+.blog-item .read-link {
+    display: flex;
+    align-items:inherit;
+    flex-wrap:wrap;
+}
+.blog-item .blog-comment-info {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.blog-item .post-by {
+    color:#df314d
+}
+.blog-item .posted-on {
+    font-style:italic;
+}
+.blog-item .fullblog-container{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+}
+.blog-item .fullblog-container p {
+        font-size: larger;
+        text-align:justify;
+}
+.blog-item .blog-body-eclipses {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}

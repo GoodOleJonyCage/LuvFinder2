@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a0b8ed66baabe6206130f35c170c573b0570500caa6dcd5753724ab8bdfbcba9
-size 283
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class UserProfilePicsDb
+{
+    public int Id { get; set; }
+
+    public int? UserId { get; set; }
+
+    public byte[]? ImageData { get; set; }
+
+    public virtual User? User { get; set; }
+}

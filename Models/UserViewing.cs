@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:52e77b9b30d84d0dbc101cdd6365e9ca9aff6d76d97a989c777d96f10b83d011
-size 406
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class UserViewing
+{
+    public int Id { get; set; }
+
+    public int UserViewingId { get; set; }
+
+    public int UserViewedId { get; set; }
+
+    public DateTime Date { get; set; }
+
+    public virtual User UserViewed { get; set; } = null!;
+
+    public virtual User UserViewingNavigation { get; set; } = null!;
+}

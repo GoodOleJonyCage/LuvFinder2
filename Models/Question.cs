@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d9e214cf2df53ea1a3bbc9ff7f2b12670c17afabb3f0a1cf06897c7066ca9d95
-size 630
+﻿using System;
+using System.Collections.Generic;
+
+namespace LuvFinder.Models;
+
+public partial class Question
+{
+    public int Id { get; set; }
+
+    public string Text { get; set; } = null!;
+
+    public int QuestionType { get; set; }
+
+    public string? ShortDesc { get; set; }
+
+    public virtual ICollection<Answer> Answers { get; set; } = new List<Answer>();
+
+    public virtual ICollection<Profile> Profiles { get; set; } = new List<Profile>();
+
+    public virtual QuestionType QuestionTypeNavigation { get; set; } = null!;
+
+    public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
+}
