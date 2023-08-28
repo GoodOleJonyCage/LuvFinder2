@@ -1,5 +1,21 @@
 /*import { UserStore } from '../components/UserStore'*/
-export const AddBlogComment = async (username, blogid,comment) => {
+export const UploadBlog = async (data) => {
+
+    let response = await fetch(`blog/createblog`, {
+        //headers: {
+        //    "Content-Type": "multipart/form-data"
+        //},
+        method: 'POST',
+        body: data
+    });
+    if (response.ok) {
+        const result = await response.text();
+        return result;
+    }
+    throw response;
+}
+
+export const AddBlogComment = async (username, blogid, comment) => {
 
     let response = await fetch(`blog/addblogcomment`, {
         headers: {
@@ -22,7 +38,6 @@ export const AddBlogComment = async (username, blogid,comment) => {
 
     throw response;
 }
-
 
 export const GetBlogCount = async (username) => {
 

@@ -12,7 +12,7 @@ export const FullBlog = () => {
     const [blog, setblog] = useState({});
     const [loaded, setloaded] = useState(false);
 
-    const { isLoggedIn } = UserStore();
+    const { isLoggedIn, getUsername } = UserStore();
     let location = useLocation();
     const username = location.state.username;
     
@@ -22,7 +22,7 @@ export const FullBlog = () => {
         setblog(vm);
         setloaded(true);
         //console.log(username);
-        //console.log(vm);
+         //console.log(vm);
     }
 
     useEffect(() => {
@@ -42,10 +42,10 @@ export const FullBlog = () => {
                                 <h6><NavLink to="/viewprofile" state={{ username: props.comment.postedBy.userName }}>{props.comment.postedBy.firstName} {props.comment.postedBy.lastName} ({props.comment.postedBy.age}) {props.comment.postedBy.gender}</NavLink></h6>
                                 <span className="posted-On"><Moment format="DD MMM YYYY hh:mm:ss:A">{props.comment.date}</Moment></span>
                             </div>
-                            <span className="reply">
-                                <a rel="nofollow" className="comment-reply-link" href="#"><i className="icofont-reply-all"></i>
-                                    Reply</a>
-                            </span>
+                            {/*<span className="reply">*/}
+                            {/*    <a rel="nofollow" className="comment-reply-link" href="#"><i className="icofont-reply-all"></i>*/}
+                            {/*        Reply</a>*/}
+                            {/*</span>*/}
                         </div>
                         <p>{props.comment.comment}</p>
                     </div>
@@ -53,7 +53,7 @@ export const FullBlog = () => {
         </>
     }
 
-    const LeaveComment = () => {
+    const LeaveComment = (props) => {
 
         const [comment, setcomment] = useState('');
 
@@ -69,7 +69,7 @@ export const FullBlog = () => {
                             className="comment-input" id="comment-reply" name="comment" cols="45" rows="5" placeholder="Type Here Message" aria-required="true"></textarea>
                         <button
                             onClick={async (e) => {
-                                var result = await AddBlogComment(username, blog.id, comment);
+                                var result = await AddBlogComment(props.usercommented, blog.id, comment);
                                 if (result)
                                     loadData();
                             }}
@@ -85,7 +85,7 @@ export const FullBlog = () => {
         <div className="container blog-section padding-tb">
             <div className="main-blog">
                 <div className="row">
-                    <div className="col-lg-8 col-12">
+                    <div className="col-12">
                         <div className="blog-wrapper">
                             <div className="post-item blog-item">
                                 <div className="post-item-inner">
@@ -125,10 +125,7 @@ export const FullBlog = () => {
                                 </ul>
                             </div>
                         }
-                        {isLoggedIn() ? <LeaveComment  ></LeaveComment> : <></>}
-                    </div>
-                    <div className="col-lg-4 col-12">
-                        <AsideSearch></AsideSearch>
+                            {isLoggedIn() ? <LeaveComment usercommented={getUsername()}  ></LeaveComment> : <></>}
                     </div>
                 </div>
             </div>

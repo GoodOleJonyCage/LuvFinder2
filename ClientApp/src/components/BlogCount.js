@@ -1,14 +1,19 @@
-﻿import { useEffect, useState} from 'react'
+﻿import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import { GetBlogCount } from '../Services/Services'
 
+export const BlogCount = forwardRef((props, ref) => {
 
-export const BlogCount = (props)  => {
+    useImperativeHandle(ref, () => ({
+        reloadData() {
+            loadData();
+        }
+    }));
 
     const [count, setcount] = useState(0);
 
     const loadData = async () => {
         try {
-            let cnt = await GetBlogCount(props.username);
+            const cnt = await GetBlogCount(props.username);
             setcount(cnt);
         } catch (e) {
             //redirectLoginOnUnAuthorized(e);
@@ -24,5 +29,4 @@ export const BlogCount = (props)  => {
             data-bs-target="#blogs" type="button" role="tab" aria-controls="blogs"
             aria-selected="false">Blogs <span className="item-number">{count}</span></button>
     </>
-    //});
-}
+});

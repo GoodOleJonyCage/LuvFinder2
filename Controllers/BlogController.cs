@@ -1,4 +1,5 @@
-﻿using LuvFinder.Models;
+﻿using LuvFinder.Helpers;
+using LuvFinder.Models;
 using LuvFinder.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
@@ -80,22 +81,20 @@ namespace LuvFinder.Controllers
                 }).ToList();
 
             ViewModels.UserInfo user = new ProfileController(db, _config, _webHostEnvironment)
-                .GetUserInfo(userID);
+                                        .GetUserInfo(userID);
 
             lst.ForEach(blog =>
             {
                 blog.user = user;
                 blog.Comments = db.UserBlogComments
-                    .Where(b =>
-                            b.BlogId == blog.ID &&
-                            b.UserId == userID)
-                    .Select(b => new ViewModels.BlogComment()
-                    {
-                        Date = b.Date,
-                        UserID = b.UserId ?? 0,
-                        Comment = b.Comment ?? string.Empty
+                                .Where(b => b.BlogId == blog.ID)
+                                .Select(b => new ViewModels.BlogComment()
+                                {
+                                    Date = b.Date,
+                                    UserID = b.UserId ?? 0,
+                                    Comment = b.Comment ?? string.Empty
 
-                    }).ToList();
+                                }).ToList();
 
             });
 
@@ -164,5 +163,138 @@ namespace LuvFinder.Controllers
 
             return Ok(true);
         }
+
+        [HttpPost]
+        [Route("createblog")]
+        public ActionResult CreateBlog(List<IFormFile> files)
+        {
+            var title = Request.Form["title"][0];
+            var body = Request.Form["body"][0];
+            var username = Request.Form["username"][0];
+            
+            if (string.IsNullOrEmpty(title))
+                return BadRequest("Title required");
+
+            if (string.IsNullOrEmpty(body))
+                return BadRequest("Body required");
+
+            if(string.IsNullOrEmpty(username))
+                return BadRequest("UserName required");
+
+            var userID = (new UserController(new LuvFinderContext(), _config)).UserIDByName(username);
+
+            if (files != null)
+            {
+                if (files.Count == 0)
+                    return BadRequest("No Image uploaded");
+
+                try
+                {
+                    foreach (var file in files)
+                    {
+                        if (file.Length > 0)
+                        {
+                            if (!file.IsImage())
+                            {
+                                return BadRequest("Has to be an image file");
+                            }
+
+                            byte[] imgArray;
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                file.CopyTo(ms);
+                                imgArray = ms.ToArray();
+                                ms.Close();
+                                ms.Dispose();
+                            }
+                            
+                            db.UserBlogs.Add(new UserBlog()
+                            {
+                                Title = title,
+                                Image = imgArray,
+                                Body = body,
+                                UserId = userID
+                            });
+                            db.SaveChanges();
+
+                        }
+                        break;//since we are only uploading one file 
+                    }
+                }
+                catch (Exception exc)
+                {
+                    return BadRequest(exc.Message);
+                }
+
+            }
+            return Ok("Blog Created successfully");
+        }
+
+        //[HttpPost]
+        //[Route("editblog")]
+        //public ActionResult EditBlog(List<IFormFile> files)
+        //{
+        //    var title = Request.Form["title"][0];
+        //    var body = Request.Form["body"][0];
+        //    var username = Request.Form["username"][0];
+
+        //    if (string.IsNullOrEmpty(title))
+        //        return BadRequest("Title required");
+
+        //    if (string.IsNullOrEmpty(body))
+        //        return BadRequest("Body required");
+
+        //    if (string.IsNullOrEmpty(username))
+        //        return BadRequest("UserName required");
+
+        //    var userID = (new UserController(new LuvFinderContext(), _config)).UserIDByName(username);
+
+
+        //    if (files != null)
+        //    {
+        //        if (files.Count == 0)
+        //            return BadRequest("No Image uploaded");
+
+        //        try
+        //        {
+        //            foreach (var file in files)
+        //            {
+        //                if (file.Length > 0)
+        //                {
+        //                    if (!file.IsImage())
+        //                    {
+        //                        return BadRequest("Has to be an image file");
+        //                    }
+
+        //                    byte[] imgArray;
+        //                    using (MemoryStream ms = new MemoryStream())
+        //                    {
+        //                        file.CopyTo(ms);
+        //                        imgArray = ms.ToArray();
+        //                        ms.Close();
+        //                        ms.Dispose();
+        //                    }
+
+        //                    db.UserBlogs.Add(new UserBlog()
+        //                    {
+        //                        Title = title,
+        //                        Image = imgArray,
+        //                        Body = body,
+        //                        UserId = userid
+        //                    });
+        //                    db.SaveChanges();
+
+        //                }
+        //                break;//since we are only uploading one file 
+        //            }
+        //        }
+        //        catch (Exception exc)
+        //        {
+        //            return BadRequest(exc.Message);
+        //        }
+
+        //    }
+        //    return Ok("Blog Created successfully");
+        //}
     }
 }

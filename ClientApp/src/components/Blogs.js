@@ -1,11 +1,18 @@
-﻿import { useState } from "react"
+﻿import { useState ,forwardRef, useImperativeHandle } from "react"
 import { useEffect } from 'react'
 import { NavLink  } from 'react-router-dom';
 import { LoadBlogs } from '../Services/Services'
 import {LoadingDiv } from './LoadingDiv'
 import Moment from 'react-moment';
 
-export const Blogs = (props) => {
+export const Blogs = forwardRef((props, ref) => {
+
+    useImperativeHandle(ref, () => ({
+        reloadData() {
+            loadData();
+            //console.log('reloadData called');
+        }
+    }));
 
     const [blogs, setblogs] = useState([]);
     const [loaded, setloaded] = useState(false);
@@ -37,11 +44,20 @@ export const Blogs = (props) => {
                         <p className="blog-body-eclipses">{props.blog.body} </p>
                     </div>
                     <div className="blog-footer">
-                        <div className="read-link">
-                            <NavLink className="viewall" to="/viewblog" state={{
-                                blogid: props.blog.id,
-                                username: props.username
-                            }}>Read More</NavLink><i className="icofont-double-right"></i>
+                        <div className="icon-container">
+                            <div className="read-link">
+                                <NavLink className="viewall" to="/viewblog" state={{
+                                    blogid: props.blog.id,
+                                    username: props.username
+                                }}>Read More</NavLink><i className="icofont-double-right"></i>
+                            </div>
+                            {
+                                props.editMode ?
+                                    <div className="read-link">
+                                    <i className="fa-solid fa-pencil"></i><NavLink className="left">Edit</NavLink>
+                                </div> 
+                                : <></>
+                            }
                         </div>
                         {/*<a onClick={(e) => navigate('/viewblog')} className="viewall">Read More <i className="icofont-double-right"></i></a>*/}
                         <div className="right">
@@ -65,9 +81,9 @@ export const Blogs = (props) => {
                 blogs.length === 0 && loaded ? <div className="highlight-error text-center">No Blogs to load</div>  :
                 blogs.map((b, index) => {
 
-                    return <Blog blog={b} username={props.username} key={index}></Blog>
+                    return <Blog editMode={props.editMode} blog={b} username={props.username} key={index}></Blog>
                 })
             }
         </div>
     </>
-}
+});
