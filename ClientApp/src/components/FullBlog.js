@@ -29,28 +29,87 @@ export const FullBlog = () => {
         loadData();
     }, []);
 
+    const ReplyButton = (props) => {
+
+        const [hidereplybtn, sethidereplytbtn] = useState(false);
+        const [replymessage, setreplymessage] = useState('');
+
+        return <>
+            {
+                hidereplybtn ?
+                    <div className="show-reply-content">
+                        <div><textarea onChange={(e) => { setreplymessage(e.target.value) }}></textarea></div>  
+                        <div>
+                            <button className="lab-btn btn-sm"
+                                onClick={async (e) => {
+                                var result = await AddBlogComment(props.usercommented, blog.id, replymessage, props.comment.id);
+                                if (result)
+                                    loadData();
+                                }} >Reply</button>
+                            <button className="lab-btn btn-sm" onClick={(e) => { sethidereplytbtn(false) }} >Cancel</button>
+                        </div>
+                    </div>
+                    :
+                    <span className="reply">
+                    <a
+                        onClick={(e) => {
+                                sethidereplytbtn(true);
+                            }} rel="nofollow" className="comment-reply-link"><i className="icofont-reply-all"></i>Reply</a>
+                </span>
+            }
+        </>
+    }
+
+    const CommentReply = (props) => {
+
+        return <>
+                <ul className="comment-list">
+                    <li className="comment even thread-even depth-1 comment" id="li-comment-3">
+                        <div className="com-image">
+                            <img alt="" src={props.comment.postedBy.profilePic} className="avatar avatar-90 photo" height="90" width="90" />
+                        </div>
+                        <div className="com-content">
+                            <div className="com-title">
+                                <div className="com-title-meta">
+                                    <h6><NavLink to="/viewprofile" state={{ username: props.comment.postedBy.userName }}>{props.comment.postedBy.firstName} {props.comment.postedBy.lastName} ({props.comment.postedBy.age}) {props.comment.postedBy.gender}</NavLink></h6>
+                                    <span className="posted-On"> <Moment format="DD MMM YYYY hh:mm:ss:A">{props.comment.date}</Moment> </span>
+                                </div>
+                            </div>
+                            <p>{props.comment.comment}</p>
+                        </div>
+                    </li>
+                </ul>
+            </>
+
+    }
+
     const Comment = (props) => {
 
         return <>
                 <li className="comment" id="li-comment-2">
-                    <div className="com-image">
-                    <img alt="" src={props.comment.postedBy.profilePic} className="avatar avatar-90 photo" />
+                     <div className="com-reply-container">
+                        <div className="com-image">
+                            <img alt="" src={props.comment.postedBy.profilePic} className="avatar avatar-90 photo" />
+                        </div>
+                    {
+                        props.comment.replyTo === 0 ? <ReplyButton usercommented={getUsername()} comment={props.comment} ></ReplyButton> : <></>
+                    }
                     </div>
                     <div className="com-content">
                         <div className="com-title">
                             <div className="com-title-meta">
                                 <h6><NavLink to="/viewprofile" state={{ username: props.comment.postedBy.userName }}>{props.comment.postedBy.firstName} {props.comment.postedBy.lastName} ({props.comment.postedBy.age}) {props.comment.postedBy.gender}</NavLink></h6>
                                 <span className="posted-On"><Moment format="DD MMM YYYY hh:mm:ss:A">{props.comment.date}</Moment></span>
-                            </div>
-                            {/*<span className="reply">*/}
-                            {/*    <a rel="nofollow" className="comment-reply-link" href="#"><i className="icofont-reply-all"></i>*/}
-                            {/*        Reply</a>*/}
-                            {/*</span>*/}
+                        </div>
+                       
                         </div>
                         <p>{props.comment.comment}</p>
                     </div>
+                    {
+                        props.comment.replyTo === 0 ? <></> : <CommentReply comment={props.comment.reply}></CommentReply>
+                    }
                 </li>
-        </>
+            </>
     }
 
     const LeaveComment = (props) => {
@@ -69,7 +128,7 @@ export const FullBlog = () => {
                             className="comment-input" id="comment-reply" name="comment" cols="45" rows="5" placeholder="Type Here Message" aria-required="true"></textarea>
                         <button
                             onClick={async (e) => {
-                                var result = await AddBlogComment(props.usercommented, blog.id, comment);
+                                var result = await AddBlogComment(props.usercommented, blog.id, comment,0);
                                 if (result)
                                     loadData();
                             }}

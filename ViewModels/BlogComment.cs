@@ -12,5 +12,6 @@ namespace LuvFinder.ViewModels
         public DateTime? Date { get; set; }
         public int ReplyTo { get; set; }
         public UserInfo PostedBy { get; set; } = new UserInfo();
+        public BlogComment Reply { get; set; } 
     }
 }

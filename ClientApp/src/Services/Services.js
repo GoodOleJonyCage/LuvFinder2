@@ -15,7 +15,7 @@ export const UploadBlog = async (data) => {
     throw response;
 }
 
-export const AddBlogComment = async (username, blogid, comment) => {
+export const AddBlogComment = async (username, blogid, comment,replyto) => {
 
     let response = await fetch(`blog/addblogcomment`, {
         headers: {
@@ -27,7 +27,8 @@ export const AddBlogComment = async (username, blogid, comment) => {
         body: JSON.stringify({
             username: username,
             blogid: blogid,
-            comment: comment
+            comment: comment,
+            replyto: replyto
         }),
     });
 

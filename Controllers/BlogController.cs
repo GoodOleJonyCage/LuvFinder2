@@ -83,27 +83,49 @@ namespace LuvFinder.Controllers
             ViewModels.UserInfo user = new ProfileController(db, _config, _webHostEnvironment)
                                         .GetUserInfo(userID);
 
+            //get blog comments
             lst.ForEach(blog =>
             {
                 blog.user = user;
                 blog.Comments = db.UserBlogComments
-                                .Where(b => b.BlogId == blog.ID)
+                                .Where(b => b.BlogId == blog.ID && !b.ReplyTo.HasValue)
                                 .Select(b => new ViewModels.BlogComment()
                                 {
+                                    ID = b.Id,
+                                    BlogID = b.BlogId ?? 0,
                                     Date = b.Date,
                                     UserID = b.UserId ?? 0,
                                     Comment = b.Comment ?? string.Empty
-
                                 }).ToList();
 
             });
 
+            
             lst.ForEach(blog =>
             {
                 blog.Comments.ForEach(c =>
                 {
                     c.PostedBy = new ProfileController(db, _config, _webHostEnvironment)
                                    .GetUserInfo(c.UserID);
+
+                    //get blog comment replies
+                    c.Reply = db.UserBlogComments
+                                .Where(b => b.BlogId == blog.ID &&
+                                            (b.ReplyTo.HasValue && b.ReplyTo == c.ID))
+                                .Select(b => new ViewModels.BlogComment()
+                                {
+                                    Date = b.Date,
+                                    BlogID = b.BlogId??0,
+                                    UserID = b.UserId ?? 0,
+                                    Comment = b.Comment ?? string.Empty,
+                                }).SingleOrDefault();
+                    
+                    if (c.Reply != null)
+                    {
+                        c.ReplyTo = c.ID;
+                        c.Reply.PostedBy = new ProfileController(db, _config, _webHostEnvironment)
+                                            .GetUserInfo(c.Reply.UserID);
+                    }
 
                 });
             });
@@ -141,6 +163,9 @@ namespace LuvFinder.Controllers
             var blogid = Int32.Parse(userParams.GetProperty("blogid").ToString());
             var comment = userParams.GetProperty("comment").ToString();
 
+            var replyto = userParams.GetProperty("replyto").ToString();
+            int replytoID = Int32.Parse(replyto);
+
             var userID = (new UserController(new LuvFinderContext(), _config)).UserIDByName(username);
 
             try
@@ -150,7 +175,8 @@ namespace LuvFinder.Controllers
                         {
                             BlogId = blogid,
                             Comment =comment,
-                            UserId=userID
+                            UserId=userID,
+                            ReplyTo = replytoID == 0 ? null : replytoID
                         });
                
                 db.SaveChanges();

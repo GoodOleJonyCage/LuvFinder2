@@ -603,4 +603,41 @@ ul li.nocheckmark:before {
     background: #df314d;
     
 }
+.comment-reply-link {
+    color: #df314d;
+    font-weight: bold;
+}
+.comment{
+    display:flex;
+    flex-direction:column;
+}
+.comment .com-content {
+    width: 100%;
+}
+    
+.comment .com-reply-container{
+        display:flex;
+        justify-content:space-between;
+}
+.show-reply-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border:outset 1px gray;
+    padding:20px 10px;
+}
+.show-reply-content textarea{
+    color:black;
+    padding:10px 10px;
+    width:300px;
+    height:100px;
+    font-size:smaller;
+}
+
+    
+.show-reply-content button {
+    background-color: #df314d;
+    color: #fff;
+    box-shadow: 3px 3px 0 currentColor;
+}
 /*create blog*/

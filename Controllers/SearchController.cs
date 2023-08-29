@@ -63,11 +63,11 @@ namespace LuvFinder.Controllers
             
             try
             {
-                if (vm.SelectedGender == 0)
-                    lstErrors.Add("Gender required");
+                //if (vm.SelectedGender == 0)
+                //    lstErrors.Add("Gender required");
 
-                if (vm.SelectedSeekingGender == 0)
-                    lstErrors.Add("Seeking Gender required");
+                //if (vm.SelectedSeekingGender == 0)
+                //    lstErrors.Add("Seeking Gender required");
 
                 //if (vm.SelectedMinAge == 0)
                 //    lstErrors.Add("Min age required");
@@ -91,13 +91,14 @@ namespace LuvFinder.Controllers
                 var lst = (from u in db.Users
                            join i in db.UserInfos on u.Id equals i.UserId
                            where
-                           i.GenderId == vm.SelectedGender &&
-                           i.SeekingGenderId == vm.SelectedSeekingGender &&
+                           i.GenderId == (vm.SelectedGender == 0 ? i.GenderId : vm.SelectedGender) &&
+                           i.SeekingGenderId == (vm.SelectedSeekingGender == 0 ? i.SeekingGenderId : vm.SelectedSeekingGender) &&
                            i.CountryId == (vm.CountryID > 0 ? vm.CountryID : i.CountryId) &&
                            i.RegionId == (vm.RegionID > 0 ? vm.RegionID : i.RegionId ) &&
                            i.CityId == (vm.CityID > 0 ? vm.CityID : i.CityId ) 
                            select new ViewModels.UserInfo()
                            {
+                               UserID = u.Id,
                                UserName = u.Username,
                                LastName = i.LastName ?? string.Empty,
                                FirstName = i.FirstName ?? string.Empty,
