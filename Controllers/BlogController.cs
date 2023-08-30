@@ -106,7 +106,7 @@ namespace LuvFinder.Controllers
                 blog.Comments.ForEach(c =>
                 {
                     c.PostedBy = new ProfileController(db, _config, _webHostEnvironment)
-                                   .GetUserInfo(c.UserID);
+                                   .GetUserInfo(c.UserID) ;
 
                     //get blog comment replies
                     c.Reply = db.UserBlogComments
@@ -256,71 +256,67 @@ namespace LuvFinder.Controllers
             return Ok("Blog Created successfully");
         }
 
-        //[HttpPost]
-        //[Route("editblog")]
-        //public ActionResult EditBlog(List<IFormFile> files)
-        //{
-        //    var title = Request.Form["title"][0];
-        //    var body = Request.Form["body"][0];
-        //    var username = Request.Form["username"][0];
+        [HttpPost]
+        [Route("editblog")]
+        public ActionResult EditBlog(List<IFormFile> files)
+        {
+            var blogidStr = Request.Form["blogid"][0];
+            var title = Request.Form["title"][0];
+            var body = Request.Form["body"][0];
+            var username = Request.Form["username"][0];
 
-        //    if (string.IsNullOrEmpty(title))
-        //        return BadRequest("Title required");
+            if (string.IsNullOrEmpty(blogidStr))
+                return BadRequest("Blog ID required");
 
-        //    if (string.IsNullOrEmpty(body))
-        //        return BadRequest("Body required");
+            if (string.IsNullOrEmpty(title))
+                return BadRequest("Title required");
 
-        //    if (string.IsNullOrEmpty(username))
-        //        return BadRequest("UserName required");
+            if (string.IsNullOrEmpty(body))
+                return BadRequest("Body required");
 
-        //    var userID = (new UserController(new LuvFinderContext(), _config)).UserIDByName(username);
+            if (string.IsNullOrEmpty(username))
+                return BadRequest("UserName required");
 
+            int blogid = Int32.Parse(blogidStr);
+            var userID = (new UserController(new LuvFinderContext(), _config)).UserIDByName(username);
 
-        //    if (files != null)
-        //    {
-        //        if (files.Count == 0)
-        //            return BadRequest("No Image uploaded");
+            try
+            {
+                byte[] imgArray = null;
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        if (!file.IsImage())
+                        {
+                            return BadRequest("Has to be an image file");
+                        }
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            file.CopyTo(ms);
+                            imgArray = ms.ToArray();
+                            ms.Close();
+                            ms.Dispose();
+                        }
+                    }
+                    break;//since we are only uploading one file 
+                }
 
-        //        try
-        //        {
-        //            foreach (var file in files)
-        //            {
-        //                if (file.Length > 0)
-        //                {
-        //                    if (!file.IsImage())
-        //                    {
-        //                        return BadRequest("Has to be an image file");
-        //                    }
+                var blog = db.UserBlogs.Where(b => b.Id == blogid).SingleOrDefault();
+                if (blog != null)
+                {
+                    blog.Title = title;
+                    blog.Image = imgArray?.Length > 0 ? imgArray : blog.Image;
+                    blog.Body = body;
+                }
+                db.SaveChanges();
+            }
+            catch (Exception exc)
+            {
+                return BadRequest(exc.Message);
+            }
 
-        //                    byte[] imgArray;
-        //                    using (MemoryStream ms = new MemoryStream())
-        //                    {
-        //                        file.CopyTo(ms);
-        //                        imgArray = ms.ToArray();
-        //                        ms.Close();
-        //                        ms.Dispose();
-        //                    }
-
-        //                    db.UserBlogs.Add(new UserBlog()
-        //                    {
-        //                        Title = title,
-        //                        Image = imgArray,
-        //                        Body = body,
-        //                        UserId = userid
-        //                    });
-        //                    db.SaveChanges();
-
-        //                }
-        //                break;//since we are only uploading one file 
-        //            }
-        //        }
-        //        catch (Exception exc)
-        //        {
-        //            return BadRequest(exc.Message);
-        //        }
-
-        //    }
-        //    return Ok("Blog Created successfully");
-        //}
+            return Ok("Blog Updated successfully");
+        }
     }
 }

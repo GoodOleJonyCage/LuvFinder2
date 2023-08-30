@@ -54,7 +54,7 @@ export const Blogs = forwardRef((props, ref) => {
                             {
                                 props.editMode ?
                                     <div className="read-link">
-                                    <i className="fa-solid fa-pencil"></i><NavLink className="left">Edit</NavLink>
+                                        <i className="fa-solid fa-pencil"></i><NavLink className="left" to="/editprofile/editblog" state={{ blog: props.blog }}>Edit</NavLink>
                                 </div> 
                                 : <></>
                             }

@@ -1,4 +1,20 @@
 /*import { UserStore } from '../components/UserStore'*/
+export const BlogEdit = async (data) => {
+
+    let response = await fetch(`blog/editblog`, {
+        //headers: {
+        //    "Content-Type": "multipart/form-data"
+        //},
+        method: 'POST',
+        body: data
+    });
+    if (response.ok) {
+        const result = await response.text();
+        return result;
+    }
+    throw response;
+}
+
 export const UploadBlog = async (data) => {
 
     let response = await fetch(`blog/createblog`, {

@@ -2,7 +2,7 @@
 import { NavLink } from 'react-router-dom';
 import { useLocation } from "react-router-dom"
 import Moment from 'react-moment';
-import { AsideSearch } from './AsideSearch'
+/*import { AsideSearch } from './AsideSearch'*/
 import { UserStore } from './UserStore'
 import { AddBlogComment, GetBlog } from '../Services/Services'
 import { LoadingDiv } from './LoadingDiv'
