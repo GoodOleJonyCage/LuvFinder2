@@ -121,7 +121,11 @@ namespace LuvFinder.Controllers
                 
                 if (vm.SelectedMaxAge != 0)
                     lst = lst.Where(i => i.Age <= vm.SelectedMaxAge).ToList();
-                
+
+
+                //for (int i = 0; i < 5; i++)
+                //    lst.AddRange(lst);
+
                 vm.Results = lst;
 
             }
