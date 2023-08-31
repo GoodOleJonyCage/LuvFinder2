@@ -659,3 +659,10 @@ ul li.nocheckmark:before {
     justify-content:space-between;
 }
 /*pagination*/
+
+.banner-form .MuiButtonBase-root {
+    background-color: transparent;
+    width: 20px !important;
+    margin: 0px;
+    padding:0px;
+}

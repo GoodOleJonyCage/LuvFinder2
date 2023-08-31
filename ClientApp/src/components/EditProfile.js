@@ -176,7 +176,8 @@ export const EditProfile = () => {
                         <li>
                             <p className="info-name">I'm a</p>
                             <p className="info-details">
-                                <select id="user-gender" defaultValue={info.genderID}
+                                <select id="user-gender"
+                                    value={info.genderID}
                                     onChange={(e) => { info.genderID = e.target.value; }}>
                                     {
                                         genders.map((gender, index) => {
@@ -189,7 +190,8 @@ export const EditProfile = () => {
                         <li>
                             <p className="info-name">Loking for a</p>
                             <p className="info-details">
-                                <select id="user-gender" defaultValue={info.seekingGenderID}
+                                <select id="user-gender"
+                                    value={info.seekingGenderID}
                                     onChange={(e) => { info.seekingGenderID = e.target.value; }}>
                                     {
                                         genders.map((gender, index) => {
@@ -203,7 +205,7 @@ export const EditProfile = () => {
                             <p className="info-name">Marital Status</p>
                             <p className="info-details">
                                 <select id="user-maritalstatus"
-                                    defaultValue={info.maritalStatusID}
+                                    value={info.maritalStatusID}
                                     onChange={(e) => { info.maritalStatusID = e.target.value; }} >
                                     {
                                         maritalstatuses.map((status, index) => {
