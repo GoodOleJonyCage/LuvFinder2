@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from 'react'
 import { UploadBlog } from '../Services/Services'
 import { UserStore } from './UserStore'
+import { NavLink } from 'react-router-dom';
 
 export const CreateBlog = (props) => {
 
@@ -23,6 +24,10 @@ export const CreateBlog = (props) => {
     }, []);
 
     return <>
+        <div className="go-back-container">
+            <i className="fas fa-arrow-left" aria-hidden="true"></i>
+            <NavLink to="/editprofile">Go Back</NavLink>
+        </div>
         <div className="post-item blog-item  ">
             <div className="post-item-inner">
                 {result.length === 0 ?

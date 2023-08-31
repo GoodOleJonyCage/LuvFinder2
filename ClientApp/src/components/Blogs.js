@@ -1,6 +1,6 @@
 ﻿import { useState ,forwardRef, useImperativeHandle } from "react"
 import { useEffect } from 'react'
-import { NavLink  } from 'react-router-dom';
+import { NavLink, useNavigate  } from 'react-router-dom';
 import { LoadBlogs } from '../Services/Services'
 import {LoadingDiv } from './LoadingDiv'
 import Moment from 'react-moment';
@@ -16,6 +16,7 @@ export const Blogs = forwardRef((props, ref) => {
 
     const [blogs, setblogs] = useState([]);
     const [loaded, setloaded] = useState(false);
+    const navigate = useNavigate();
 
     const loadData = async () => {
         const vm = await LoadBlogs(props.username);
@@ -46,7 +47,8 @@ export const Blogs = forwardRef((props, ref) => {
                     <div className="blog-footer">
                         <div className="icon-container">
                             <div className="read-link">
-                                <NavLink className="viewall" to="/viewblog" state={{
+                                <NavLink className="viewall" to="/viewblog" 
+                                    state={{
                                     blogid: props.blog.id,
                                     username: props.username
                                 }}>Read More</NavLink><i className="icofont-double-right"></i>
@@ -75,7 +77,12 @@ export const Blogs = forwardRef((props, ref) => {
     }
 
     return <>
-        <div className="blog-wrapper">
+        <div className="blog-wrapper ">
+            <button className="lab-btn btn-sm"
+                onClick={(e) => {
+                    e.preventDefault();
+                    navigate('/editprofile/createblog');
+                }}>Create new Blog</button>
             {
                 blogs.length === 0 && !loaded ? <LoadingDiv></LoadingDiv> :
                 blogs.length === 0 && loaded ? <div className="highlight-error text-center">No Blogs to load</div>  :

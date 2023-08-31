@@ -548,15 +548,18 @@ ul li.nocheckmark:before {
     gap:8px;
     align-items:center;
 }
-
+.blog-wrapper .lab-btn {
+    background-color: #df314d;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    -webkit-appearance: button;
+}
 /*create blog*/
-
-.createblog-container{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:20px;
-    
+.createblog-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
 }
 
 .createblog-container .title-container {

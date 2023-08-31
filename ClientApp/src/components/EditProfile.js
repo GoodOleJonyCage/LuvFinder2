@@ -17,6 +17,7 @@ import { Blogs } from './Blogs'
 import { CreateBlog } from './CreateBlog'
 import { EditBlog } from './EditBlog'
 
+
 export const EditProfile = () => {
 
     const ref_pendingFriendRequests = useRef(null);
@@ -450,9 +451,9 @@ export const EditProfile = () => {
                                         <FriendCount></FriendCount>
                                         <ChatCount ref={ref_chatCount}></ChatCount>
                                         <BlogCount ref={ref_blogCount} username={getUsername()}></BlogCount>
-                                        <button className="nav-link" id="nav-createblog-tab" data-bs-toggle="tab"
-                                            data-bs-target="#createblog" type="button" role="tab" aria-controls="createblog"
-                                            aria-selected="false">Create Blog</button>
+                                        {/*<button className="nav-link" id="nav-createblog-tab" data-bs-toggle="tab"*/}
+                                        {/*    data-bs-target="#createblog" type="button" role="tab" aria-controls="createblog"*/}
+                                        {/*    aria-selected="false">Create Blog</button>*/}
                                         {/*<button className="nav-link" id="nav-media-tab" data-bs-toggle="tab" data-bs-target="#media"*/}
                                         {/*    type="button" role="tab" aria-controls="media" aria-selected="false">Media <span*/}
                                         {/*        className="item-number">35</span></button>*/}
@@ -1368,8 +1369,10 @@ export const EditProfile = () => {
                                                             <div className="lab-inner align-items-center p-4">
                                                                 <Routes>
                                                                     <Route path="/" element={<ChatSummary />} />
-                                                                    <Route path="/chatsummary" element={<ChatSummary />} />
+                                                                    {/*<Route path="/chatsummary" element={<ChatSummary />} />*/}
                                                                     <Route path="/editblog" element={<ChatSummary />} />
+                                                                    <Route path="/createblog" element={<ChatSummary />} />
+                                                                    <Route path="/viewblog" element={<ChatSummary />} />
                                                                     <Route path="/chatmessages" element={<ChatMessages loadChatCount={ref_chatCount?.current?.reloadData} />} />
                                                                 </Routes>
                                                             </div>
@@ -1392,6 +1395,7 @@ export const EditProfile = () => {
                                                             <Route path="/chatsummary" element={<Blogs ref={ref_blogs} editMode={true} username={getUsername()}></Blogs>} />
                                                             <Route path="/chatmessages" element={<Blogs ref={ref_blogs} editMode={true} username={getUsername()}></Blogs>} />
                                                             <Route path="/editblog" element={<EditBlog />} />
+                                                            <Route path="/createblog" element={<CreateBlog loadBlogCount={ref_blogCount?.current?.reloadData} loadBlogs={ref_blogs?.current?.reloadData} username={getUsername()}></CreateBlog>} />
                                                         </Routes>
                                                     </div>
                                                 </div>
@@ -1399,20 +1403,20 @@ export const EditProfile = () => {
                                         </div>
                                     </div>
                                     {/* Create Blog Tab */}
-                                    <div className="tab-pane fade" id="createblog" role="tabpanel" aria-labelledby="nav-createblog-tab">
-                                        <div className="container blog-section">
-                                            <div className="main-blog">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <CreateBlog
-                                                            loadBlogCount={ref_blogCount?.current?.reloadData}
-                                                            loadBlogs={ref_blogs?.current?.reloadData}
-                                                            username={getUsername()}></CreateBlog>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {/*<div className="tab-pane fade" id="createblog" role="tabpanel" aria-labelledby="nav-createblog-tab">*/}
+                                    {/*    <div className="container blog-section">*/}
+                                    {/*        <div className="main-blog">*/}
+                                    {/*            <div className="row">*/}
+                                    {/*                <div className="col-12">*/}
+                                    {/*                    <CreateBlog*/}
+                                    {/*                        loadBlogCount={ref_blogCount?.current?.reloadData}*/}
+                                    {/*                        loadBlogs={ref_blogs?.current?.reloadData}*/}
+                                    {/*                        username={getUsername()}></CreateBlog>*/}
+                                    {/*                </div>*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>

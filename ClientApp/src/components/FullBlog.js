@@ -161,7 +161,8 @@ export const FullBlog = () => {
                                         {/*<a onClick={(e) => navigate('/viewblog')} className="viewall">Read More <i className="icofont-double-right"></i></a>*/}
                                         <div className="right">
                                             <div className="go-back-container">
-                                                <i className='fas fa-arrow-left'></i><NavLink to="/viewprofile" state={{ username: username }}>Go Back</NavLink>  
+                                                <i className='fas fa-arrow-left'></i>
+                                                <NavLink to="/viewprofile" state={{ username: username }}>Go Back</NavLink>  
                                             </div>
                                             
                                         </div>

@@ -84,7 +84,7 @@ export const ChatMessages_Chat = forwardRef((props, ref) => {
                 <div className="widget-title chat-header">
                     <h3>{chat.length} Messages</h3>
                     <div className="go-back-container">
-                        <i className='fas fa-arrow-left'></i><NavLink to="/editprofile/chatsummary">Go Back</NavLink>
+                        <i className='fas fa-arrow-left'></i><NavLink to="/editprofile">Go Back</NavLink>
                     </div>
                 </div>
                 <div>
