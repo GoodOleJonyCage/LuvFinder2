@@ -188,12 +188,14 @@ ul li.nocheckmark:before {
 .MuiAutocomplete-option {
     margin-left: 20px;
     font-size: small ;
+    color:black !important;
 }
 .MuiAutocomplete-popupIndicator svg,
 .MuiAutocomplete-clearIndicator svg {
     color: white;
 }
 
+ 
 /*mui autocomplete on search page*/
 .search-location-selectors-search {
     margin-left: 1px;
