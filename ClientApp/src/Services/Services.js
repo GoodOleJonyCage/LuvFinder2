@@ -1,772 +1,244 @@
-/*import { UserStore } from '../components/UserStore'*/
+import { fetcher } from '../Services/fetcher'
+
 export const BlogEdit = async (data) => {
 
-    let response = await fetch(`blog/editblog`, {
-        //headers: {
-        //    "Content-Type": "multipart/form-data"
-        //},
-        method: 'POST',
-        body: data
-    });
-    if (response.ok) {
-        const result = await response.text();
-        return result;
-    }
-    throw response;
+    return fetcher(`blog/editblog`, 'POST', false, data);
 }
 
 export const UploadBlog = async (data) => {
 
-    let response = await fetch(`blog/createblog`, {
-        //headers: {
-        //    "Content-Type": "multipart/form-data"
-        //},
-        method: 'POST',
-        body: data
-    });
-    if (response.ok) {
-        const result = await response.text();
-        return result;
-    }
-    throw response;
+    return fetcher(`blog/createblog`, 'POST', false, data);
 }
 
-export const AddBlogComment = async (username, blogid, comment,replyto) => {
+export const AddBlogComment = async (username, blogid, comment, replyto) => {
 
-    let response = await fetch(`blog/addblogcomment`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username,
-            blogid: blogid,
-            comment: comment,
-            replyto: replyto
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`blog/addblogcomment`, 'POST', true, JSON.stringify({
+        username: username,
+        blogid: blogid,
+        comment: comment,
+        replyto: replyto
+    }));
 }
 
 export const GetBlogCount = async (username) => {
 
-    let response = await fetch(`blog/blogcount`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ username: username }),
-    });
+    return fetcher(`blog/blogcount`, 'POST', true, JSON.stringify({ username: username }));
 
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
 }
 
-export const GetBlog = async (username,blogid) => {
+export const GetBlog = async (username, blogid) => {
 
-    let response = await fetch(`blog/blog`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ username: username, blogid: blogid }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`blog/blog`, 'POST', true, JSON.stringify({ username: username, blogid: blogid }));
 
 }
 
 export const LoadBlogs = async (username) => {
 
-    let response = await fetch(`blog/blogs`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ username: username }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`blog/blogs`, 'POST', true, JSON.stringify({ username: username }));
 
 }
 
 export const LoadFriendProfiles = async (username) => {
 
-    let response = await fetch(`profile/friends`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ username: username }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/friends`, 'POST', true, JSON.stringify({ username: username }));
 
 }
 
 export const UploadFile = async (data) => {
-    
-    let response = await fetch(`userpic/upload`, {
-        //headers: {
-        //    "Content-Type": "multipart/form-data"
-        //},
-        method: 'POST',
-        body:   data 
-    });
-    if (response.ok) {
-        return true;
-    }
-    throw response;
+
+    return fetcher(`userpic/upload`, 'POST', false, data);
 }
 
 
 export const ExecuteSearch = async (searchcriteria) => {
 
-    let response = await fetch(`search/search`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            vm: searchcriteria,
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`search/search`, 'POST', true, JSON.stringify({
+        vm: searchcriteria,
+    }));
 }
 
 export const GetSearchCritera = async () => {
 
-    let response = await fetch(`search/getsearchcriteria`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        //method: 'POST',
-        //body: JSON.stringify({
-        //    usernamefrom: fromusername,
-        //    usernameto: tousername,
-        //}),
-    });
+    return fetcher(`search/getsearchcriteria`, 'GET', true, null);
 
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
 }
 
 export const AreFriendsStatus = async (fromusername, tousername) => {
 
-    let response = await fetch(`chat/arefriends`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom: fromusername,
-            usernameto: tousername,
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`chat/arefriends`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername,
+    }));
 }
 
 export const GetChatInvitationStatus = async (fromusername, tousername) => {
 
-    let response = await fetch(`chat/chatinvitationstatus`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom: fromusername,
-            usernameto: tousername,
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`chat/chatinvitationstatus`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername,
+    }));
 }
 
 export const AddChatMessage = async (fromusername, tousername, message) => {
 
-    let response = await fetch(`chat/addchatmessage`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom: fromusername,
-            usernameto: tousername,
-            message: message
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`chat/addchatmessage`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername,
+        message: message
+    }));
 }
 
 export const GetFriendCount = async (username/*,token*/) => {
 
-    //console.log(getToken());
-    let response = await fetch(`profile/friendcount`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + token
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/friendcount`, 'POST', true, JSON.stringify({
+        username: username
+    }));
 }
 
 export const GetChatCount = async (username/*,token*/) => {
-    
-    //console.log(getToken());
-    let response = await fetch(`chat/chatcount`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-             //'Authorization': "Bearer " + token
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username
-        }),
-    });
 
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-    
-    throw response;
+    return fetcher(`chat/chatcount`, 'POST', true, JSON.stringify({
+        username: username
+    }));
 }
 
 export const GetChat = async (fromusername, tousername) => {
 
-    let response = await fetch(`chat/chat`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom: fromusername,
-            usernameto: tousername
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`chat/chat`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername
+    }));
 }
 
 export const GetChatSummary = async (username) => {
 
-    let response = await fetch(`chat/chatsummary`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`chat/chatsummary`, 'POST', true, JSON.stringify({
+        username: username
+    }));
 }
 
 export const FriendRequestCount = async (tousername) => {
 
-    let response = await fetch(`profile/friendrequestcount`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernameto: tousername
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/friendrequestcount`, 'POST', true, JSON.stringify({
+        usernameto: tousername
+    }));
 }
 
 export const StartFriendShip = async (fromusername, tousername) => {
 
-    let response = await fetch(`profile/startfriendship`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom: fromusername,
-            usernameto: tousername
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/startfriendship`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername
+    }));
 }
 
 export const GetActivityFriends = async (tousername) => {
 
-    let response = await fetch(`profile/activityfriends`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernameto: tousername
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/activityfriends`, 'POST', true, JSON.stringify({
+        usernameto: tousername
+    }));
 }
 
 export const GetLikeUserStatus = async (fromusername, tousername) => {
 
-    let response = await fetch(`profile/likeuserstatus`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom: fromusername,
-            usernameto: tousername
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/likeuserstatus`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername
+    }));
 }
 
 export const LikeUser = async (fromusername, tousername) => {
 
-    let response = await fetch(`profile/likeuser`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            usernamefrom : fromusername  ,
-            usernameto   :tousername 
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/likeuser`, 'POST', true, JSON.stringify({
+        usernamefrom: fromusername,
+        usernameto: tousername
+    }));
 }
 
 export const LoadGenders = async () => {
 
-    let response = await fetch(`profile/genders`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/genders`, 'GET', true, null);
 }
 
 export const LoadMaritalStatuses = async () => {
 
-    let response = await fetch(`profile/maritalstatuses`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/maritalstatuses`, 'GET', true, null);
 }
 
 export const LoadCountries = async () => {
 
-    let response = await fetch(`profile/countries`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        //method: 'POST',
-        //body: JSON.stringify({ quizid: quizid }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/countries`, 'GET', true, null);
 }
 
 export const LoadRegions = async (countryid) => {
 
-    let response = await fetch(`profile/regions`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ countryid: countryid }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/regions`, 'POST', true, JSON.stringify({ countryid: countryid }));
 }
 
-export const LoadCitiesByName = async (regionid,cityname) => {
+export const LoadCitiesByName = async (regionid, cityname) => {
 
-    let response = await fetch(`profile/citiesbyname`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            regionid: regionid,
-            cityname: cityname
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/citiesbyname`, 'POST', true, JSON.stringify({
+        regionid: regionid,
+        cityname: cityname
+    }));
 }
 
 export const LoadCities = async (regionid) => {
 
-    let response = await fetch(`profile/cities`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({regionid: regionid }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/cities`, 'POST', true, JSON.stringify({ regionid: regionid }));
 }
 
 export const LoadProfiles = async (username) => {
 
-    let response = await fetch(`profile/profiles`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-         method: 'POST',
-        body: JSON.stringify({ username: username }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/profiles`, 'POST', true, JSON.stringify({ username: username }));
 
 }
 
 export const LoadProfile = async (userID) => {
 
-    let response = await fetch(`profile/profilequestionnaire`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        //method: 'POST',
-        //body: JSON.stringify({ quizid: quizid }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
-
+    return fetcher(`profile/profilequestionnaire`, 'GET', true, null);
 }
 
 export const LoadUserProfile = async (username) => {
 
-    let response = await fetch(`profile/userprofile`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ username: username }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/userprofile`, 'POST', true, JSON.stringify({ username: username }));
 
 }
 
 export const LoadUserInfo = async (username) => {
 
-    let response = await fetch(`profile/userinfo`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({ username: username }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/userinfo`, 'POST', true, JSON.stringify({ username: username }));
 
 }
 
 export const LoadInitializedUserInfo = async () => {
 
-    let response = await fetch(`profile/initializeduserinfo`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        //method: 'POST',
-        //body: JSON.stringify({ username: username }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    throw response;
+    return fetcher(`profile/initializeduserinfo`, 'GET', true, null);
 
 }
 
 export const SaveProfile = async (username, vm, info) => {
 
-    let response = await fetch(`profile/saveprofile`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username,
-            info: info,
-            vm: vm
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    return Promise.reject(response);
-
+    return fetcher(`profile/saveprofile`, 'POST', true, JSON.stringify({
+        username: username,
+        info: info,
+        vm: vm
+    }));
 }
 
 export const RegisterUser = async (username, password) => {
 
-    let response = await fetch(`user/register`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username,
-            password : password
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    return Promise.reject(response);
-
+    return fetcher(`user/register`, 'POST', true, JSON.stringify({
+        username: username,
+        password: password
+    }));
 }
+
 
 export const LoginUser = async (username, password) => {
 
-    let response = await fetch(`user/login`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            //'Authorization': "Bearer " + getJwtToken()
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            username: username,
-            password: password
-        }),
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    }
-
-    return Promise.reject(response);
-
+    return fetcher(`user/login`, 'POST', true, JSON.stringify({
+        username: username,
+        password: password
+    }));
 }

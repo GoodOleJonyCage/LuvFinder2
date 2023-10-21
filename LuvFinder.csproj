@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\public\assets\images\userprofileimages\" />
-    <Folder Include="ClientApp\src\Services\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
 
