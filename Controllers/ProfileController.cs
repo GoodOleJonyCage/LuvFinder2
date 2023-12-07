@@ -12,7 +12,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LuvFinder.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProfileController : ControllerBase

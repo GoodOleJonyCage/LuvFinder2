@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LuvFinder.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserPicController : ControllerBase

@@ -1,11 +1,13 @@
 ﻿using LuvFinder.Helpers;
 using LuvFinder.Models;
 using LuvFinder.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 
 namespace LuvFinder.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class BlogController : ControllerBase
